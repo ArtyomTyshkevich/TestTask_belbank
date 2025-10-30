@@ -1,16 +1,15 @@
-using MediatR;
-using System.Reflection;
+using Library.WebAPI.Middlewares;
+using Serilog;
 using TestTask.Api.DI;
 using TestTask.Infrastructure.DI;
+using TestTask.Infrastructure.Logging;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediatR(Assembly.Load("TestTask.Infrastructure"));
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddBusinessLogic(builder.Configuration);
+builder.Host.ConfigureLogs(builder.Configuration);
 
 var app = builder.Build();
 
@@ -26,7 +25,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 SeedRoles.InitializeRoles(app.Services).Wait();
 await app.SeedAdminAsync();
-
+app.UseCustomExceptionHandler();
+app.UseCustomSerilog();
 app.MapControllers();
 
 app.Run();

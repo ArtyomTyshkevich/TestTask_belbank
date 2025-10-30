@@ -1,12 +1,12 @@
-version: '3.4'
+version: '3.9'
 
 networks:
   backend:
     driver: bridge
 
 services:
-   authdb:
-    container_name: auth-db
+  testtaskdb:
+    container_name: testtask-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
@@ -16,38 +16,68 @@ services:
     ports:
       - "8007:1433"
 
-  db:
-    image: postgres:16
-    container_name: testtask-db
-    ports:
-      - "5431:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  testtask.api:
+    container_name: auth-api
+    build:
+      context: ./Backend
+      dockerfile: TestTask/Dockerfile
+    networks:
+      - backend
     environment:
-      POSTGRES_DB: Task4311
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
-    restart: unless-stopped
+      - Logstash__Uri=http://logstash:5044
+      - Jwt__Secret=superSecretKey@345432242344324245
+      - Jwt__Issuer=https://localhost:5001 
+      - Jwt__Audience=https://localhost:5001
+      - Jwt__TokenValidityInMinutes=1
 
-  # frontend:
-  #   build:
-  #     context: ./Frontend
-  #     dockerfile: Dockerfile
-  #   container_name: testtask-frontend
-  #   image: testtask-frontend:latest
-  #   networks:
-  #     - frontend
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./Frontend:/app
-  #     - /app/node_modules
-  #   environment:
-  #     - NODE_ENV=development
-  #     - CHOKIDAR_USEPOLLING=true
-  #   depends_on:
-  #     - testtask.api
-  #   restart: unless-stopped
+      - ConnectionStrings__DefaultConnection=Server=testtaskdb;Database=testtaskdb;User Id=sa;Password=password@12345#;TrustServerCertificate=True;
+
+      - FirstAdmin__Email=admin@example.com
+      - FirstAdmin__Password=Admin123!
+      - FirstAdmin__Nickname=FirstAdmin
+    depends_on:
+      - testtaskdb
+    ports:
+      - "8002:80"
+      - "8082:443"
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.16.2
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    networks:
+      - backend
+
+  logstash:
+    image: logstash:8.17.0
+    volumes:
+      - ./Backend/Logstash/Pipeline:/usr/share/logstash/pipeline
+    ports:
+      - 9600:9600
+    depends_on:
+      - elasticsearch
+    networks:
+        - backend
+
+  kibana:
+    container_name: kibana
+    image: kibana:8.14.3
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+      - backend
 
 volumes:
-  postgres_data:
+  elasticsearch_data:
