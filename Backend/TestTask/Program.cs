@@ -24,8 +24,8 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
-Seed.InitializeRoles(app.Services).Wait();
-
+SeedRoles.InitializeRoles(app.Services).Wait();
+await app.SeedAdminAsync();
 
 app.MapControllers();
 

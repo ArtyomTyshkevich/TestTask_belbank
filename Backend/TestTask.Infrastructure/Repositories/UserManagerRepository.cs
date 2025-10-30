@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TestTask.Application.DTOs.Identity;
+using TestTask.Application.DTOs;
 using TestTask.Application.Interfaces.Repositories;
 using TestTask.Domain.Entities;
 using TestTask.Domain.Enums;
@@ -75,6 +75,31 @@ namespace TestTask.Infrastructure.Repositories
                 await _userManager.RemoveFromRolesAsync(user, currentRoles);
             }
             return await AddToRoleAsync(user, role);
+        }
+        public async Task<List<UserDto>> GetAllUsersWithRolesAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                Roles userRole;
+
+                if (Enum.TryParse(roles.FirstOrDefault(), out Roles parsedRole))
+                    userRole = parsedRole;
+                else
+                    userRole = Roles.User;
+
+                userDtos.Add(new UserDto
+                {
+                    Nickname = user.Nickname,
+                    Email = user.Email,
+                    Role = userRole
+                });
+            }
+
+            return userDtos;
         }
     }
 }

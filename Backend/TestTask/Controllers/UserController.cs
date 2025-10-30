@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestTask.Application.DTOs;
 using TestTask.Application.DTOs.Identity;
 using TestTask.Infrastructure.Features.Users.Commands;
 using TestTask.Infrastructure.Features.Users.Queries;
@@ -86,6 +87,14 @@ namespace TestTask.Api.Controllers
             var command = new DeleteUserCommand(email);
             await _mediator.Send(command, cancellationToken);
             return NoContent();
+        }
+        [HttpGet("users")]
+        [Authorize(Policy = "AdminPolicy")]
+        public async Task<ActionResult<List<UserDto>>> GetAllUsers(CancellationToken cancellationToken)
+        {
+            var query = new GetAllUsersQuery();
+            var users = await _mediator.Send(query, cancellationToken);
+            return Ok(users);
         }
     }
 }

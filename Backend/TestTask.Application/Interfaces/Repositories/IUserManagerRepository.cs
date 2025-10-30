@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using TestTask.Application.DTOs;
 using TestTask.Domain.Entities;
 using TestTask.Domain.Enums;
 
@@ -17,5 +18,6 @@ namespace TestTask.Application.Interfaces.Repositories
         Task<IList<string>> GetRolesAsync(User user);
         Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles);
         Task<IdentityResult> SetSingleRoleAsync(User user, Roles role);
+        Task<List<UserDto>> GetAllUsersWithRolesAsync();
     }
 }

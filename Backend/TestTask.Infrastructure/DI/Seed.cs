@@ -4,7 +4,7 @@ using TestTask.Domain.Enums;
 
 namespace TestTask.Infrastructure.DI
 {
-    public static class Seed
+    public static class SeedRoles
     {
         public static async Task InitializeRoles(IServiceProvider serviceProvider)
         {

@@ -5,22 +5,16 @@ networks:
     driver: bridge
 
 services:
-  testtask.api:
-    build:
-      context: ./Backend
-      dockerfile: TestTask/Dockerfile
-    container_name: testtask-api
-    image: testtask-api:latest
+   authdb:
+    container_name: auth-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
     networks:
       - backend
-    environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=Task4311;Username=postgres;Password=postgres123;
-    depends_on:
-      - db
     ports:
-      - "8003:80"
-      - "8083:443"
-    restart: unless-stopped
+      - "8007:1433"
 
   db:
     image: postgres:16
