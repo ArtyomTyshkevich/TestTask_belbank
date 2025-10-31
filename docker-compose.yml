@@ -17,7 +17,7 @@ services:
       - "8007:1433"
 
   testtask.api:
-    container_name: auth-api
+    container_name: testtask-api
     build:
       context: ./Backend
       dockerfile: TestTask/Dockerfile
@@ -78,6 +78,17 @@ services:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     networks:
       - backend
+
+  angular:
+    build:
+      context: ./Frontend/TestTaskFrontend
+      dockerfile: Dockerfile
+    image: angular-app
+    ports:
+      - "4200:4200"
+    stdin_open: true
+    tty: true
+    restart: "no"
 
 volumes:
   elasticsearch_data:
