@@ -1,0 +1,16 @@
+.login-container {
+  max-width: 400px;
+  margin: 100px auto; /* центр по вертикали и горизонтали */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}

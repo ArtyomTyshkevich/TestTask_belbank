@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TestTaskFrontend": {
+    "RPSGameFrontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/testtask-frontend",
+            "outputPath": "dist/rpsgame-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TestTaskFrontend:build:production"
+              "buildTarget": "RPSGameFrontend:build:production"
             },
             "development": {
-              "buildTarget": "TestTaskFrontend:build:development"
+              "buildTarget": "RPSGameFrontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -107,6 +107,5 @@
   },
   "cli": {
     "analytics": "f71f5095-5f2a-47ee-89c7-2eedd5aa8c74"
-  },
-  "defaultProject": "TestTaskFrontend"
+  }
 }
