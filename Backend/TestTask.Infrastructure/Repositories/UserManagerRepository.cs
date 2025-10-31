@@ -76,10 +76,11 @@ namespace TestTask.Infrastructure.Repositories
             }
             return await AddToRoleAsync(user, role);
         }
-        public async Task<List<UserDto>> GetAllUsersWithRolesAsync()
+
+        public async Task<List<UserDTO>> GetAllUsersWithRolesAsync()
         {
             var users = await _userManager.Users.ToListAsync();
-            var userDtos = new List<UserDto>();
+            var userDtos = new List<UserDTO>();
 
             foreach (var user in users)
             {
@@ -91,7 +92,7 @@ namespace TestTask.Infrastructure.Repositories
                 else
                     userRole = Roles.User;
 
-                userDtos.Add(new UserDto
+                userDtos.Add(new UserDTO
                 {
                     Nickname = user.Nickname,
                     Email = user.Email,

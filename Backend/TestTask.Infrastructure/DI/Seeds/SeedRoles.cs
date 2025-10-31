@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TestTask.Domain.Enums;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Seeds
 {
     public static class SeedRoles
     {

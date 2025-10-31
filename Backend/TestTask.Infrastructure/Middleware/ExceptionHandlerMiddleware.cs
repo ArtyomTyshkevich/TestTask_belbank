@@ -4,8 +4,9 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using TestTask.Infrastructure.Middleware;
 
-namespace Library.WebAPI.Middlewares
+namespace TestTask.Infrastructure.Middleware
 {
     public class ExceptionHandlerMiddleware
     {

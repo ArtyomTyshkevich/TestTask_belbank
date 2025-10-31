@@ -7,8 +7,8 @@ using TestTask.Application.Interfaces.Repositories.UnitOfWork;
 using TestTask.Domain.Entities;
 using TestTask.Application.DTOs.Identity;
 using TestTask.Infrastructure.Exceptions;
-using TestTask.Infrastructure.Extensions;
 using TestTask.Infrastructure.Features.Users.Commands;
+using TestTask.Infrastructure.Features.Users.Extensions;
 
 namespace TestTask.Infrastructure.Features.Users.Handlers.CommandHandlers
 {

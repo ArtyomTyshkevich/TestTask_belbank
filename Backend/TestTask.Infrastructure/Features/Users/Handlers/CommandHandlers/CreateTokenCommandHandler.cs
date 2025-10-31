@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using TestTask.Infrastructure.Extensions;
 using TestTask.Infrastructure.Features.Users.Commands;
+using TestTask.Infrastructure.Features.Users.Extensions;
 
 namespace TestTask.Infrastructure.Features.Users.Handlers.CommandHandlers
 {

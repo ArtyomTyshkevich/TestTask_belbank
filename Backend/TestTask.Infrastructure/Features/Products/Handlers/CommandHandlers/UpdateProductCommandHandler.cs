@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using TestTask.Application.DTOs;
 using TestTask.Application.Interfaces.Repositories.UnitOfWork;
-using TestTask.Domain.Entities;
 using TestTask.Infrastructure.Exceptions;
 using TestTask.Infrastructure.Features.Products.Commands;
 

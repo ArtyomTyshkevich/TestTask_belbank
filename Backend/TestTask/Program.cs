@@ -1,9 +1,7 @@
-using Library.WebAPI.Middlewares;
-using Serilog;
 using TestTask.Api.DI;
-using TestTask.Infrastructure.DI;
-using TestTask.Infrastructure.Logging;
-
+using TestTask.Infrastructure.DI.Seeds;
+using TestTask.Infrastructure.DI.Setups;
+using TestTask.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

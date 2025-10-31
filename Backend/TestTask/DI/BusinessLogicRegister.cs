@@ -4,7 +4,7 @@ using System.Reflection;
 using TestTask.Application.Interfaces.Repositories;
 using TestTask.Application.Interfaces.Repositories.UnitOfWork;
 using TestTask.Application.Mappers;
-using TestTask.Infrastructure.DI;
+using TestTask.Infrastructure.DI.Setups;
 using TestTask.Infrastructure.Features.Currency.Handlers.QuerieHandlers;
 using TestTask.Infrastructure.Repositories;
 using TestTask.Infrastructure.Repositories.UnitOfWork;

@@ -28,7 +28,7 @@ namespace TestTask.Api.Controllers
         }
 
         [HttpPost("register")]
-        //[Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
             var query = new RegisterCommand { RegisterRequest = request };
@@ -90,7 +90,7 @@ namespace TestTask.Api.Controllers
         }
         [HttpGet("users")]
         [Authorize(Policy = "AdminPolicy")]
-        public async Task<ActionResult<List<UserDto>>> GetAllUsers(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<UserDTO>>> GetAllUsers(CancellationToken cancellationToken)
         {
             var query = new GetAllUsersQuery();
             var users = await _mediator.Send(query, cancellationToken);

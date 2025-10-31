@@ -1,6 +1,5 @@
 using MediatR;
 using TestTask.Application.DTOs;
-using System;
 
 namespace TestTask.Infrastructure.Features.Products.Commands
 {

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 
 namespace TestTask.Infrastructure.Features.Users.Commands
 {

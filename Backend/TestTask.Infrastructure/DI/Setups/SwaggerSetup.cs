@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Setups
 {
     public static class SwaggerSetup
     {

@@ -1,6 +1,4 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
-
 namespace TestTask.Domain.Entities
 {
     public class Product

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Serilog;
 
-namespace TestTask.Infrastructure.Logging.Middleware
+namespace TestTask.Infrastructure.Middleware
 {
     public class RequestResponseLoggingMiddleware
     {

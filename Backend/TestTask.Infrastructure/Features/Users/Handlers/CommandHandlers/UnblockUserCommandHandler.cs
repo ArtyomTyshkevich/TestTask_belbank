@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using TestTask.Application.Interfaces.Repositories.UnitOfWork;
 using TestTask.Domain.Enums;
-using TestTask.Infrastructure.Exceptions;
 using TestTask.Infrastructure.Features.Users.Commands;
 
 namespace TestTask.Infrastructure.Features.Users.Handlers.CommandHandlers

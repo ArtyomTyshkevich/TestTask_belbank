@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TestTask.Infrastructure.Contexts;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Setups
 {
     public static class DatabaseSetup
     {

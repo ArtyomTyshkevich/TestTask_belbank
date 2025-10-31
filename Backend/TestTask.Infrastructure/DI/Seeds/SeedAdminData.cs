@@ -8,7 +8,7 @@ using TestTask.Infrastructure.Features.Users.Commands;
 using Microsoft.AspNetCore.Identity;
 using TestTask.Domain.Entities;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Seeds
 {
     public static class SeedAdminData
     {

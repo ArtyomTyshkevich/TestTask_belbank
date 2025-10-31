@@ -20,12 +20,7 @@ namespace TestTask.Api.Controllers
 
         [HttpGet("filter")]
         [Authorize(Policy = "UserOrAdvancedUser")]
-        public async Task<ActionResult<List<ProductDTO>>> Filter(
-            [FromQuery] decimal? minPrice,
-            [FromQuery] decimal? maxPrice,
-            [FromQuery] Guid? categoryId,
-            [FromQuery] string? nameStartsWith,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<List<ProductDTO>>> Filter([FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice, [FromQuery] Guid? categoryId, [FromQuery] string? nameStartsWith, CancellationToken cancellationToken)
         {
             var query = new FilterProductsQuery(minPrice, maxPrice, categoryId, nameStartsWith);
             var result = await _mediator.Send(query, cancellationToken);

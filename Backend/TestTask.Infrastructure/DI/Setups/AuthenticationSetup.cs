@@ -10,7 +10,7 @@ using TestTask.Domain.Entities;
 using TestTask.Domain.Enums;
 using TestTask.Infrastructure.Contexts;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Setups
 {
     public static class AuthenticationSetup
     {

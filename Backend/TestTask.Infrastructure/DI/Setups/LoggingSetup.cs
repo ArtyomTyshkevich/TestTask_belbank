@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace TestTask.Infrastructure.DI
+namespace TestTask.Infrastructure.DI.Setups
 {
-    public static class LoggingCongfig
+    public static class LoggingSetup
     {
         public static IHostBuilder ConfigureLogs(this IHostBuilder @this, IConfiguration configuration)
         {

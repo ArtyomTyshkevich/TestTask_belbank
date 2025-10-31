@@ -36,12 +36,14 @@ namespace TestTask.Infrastructure.Repositories
             _context.Categories.Update(category);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
         public async Task<Category> GetByIdWithProductsAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _context.Categories
                 .Include(c => c.Products)
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
+
         public async Task DeleteAsync(Category category, CancellationToken cancellationToken)
         {
             _context.Categories.Remove(category);

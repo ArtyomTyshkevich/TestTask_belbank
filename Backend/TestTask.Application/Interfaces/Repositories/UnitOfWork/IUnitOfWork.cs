@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace TestTask.Application.Interfaces.Repositories.UnitOfWork
+﻿namespace TestTask.Application.Interfaces.Repositories.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

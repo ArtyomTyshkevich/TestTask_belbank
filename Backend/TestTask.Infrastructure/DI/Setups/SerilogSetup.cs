@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 using Serilog.Formatting.Compact;
-using TestTask.Infrastructure.Logging.Middleware;
+using TestTask.Infrastructure.Middleware;
 
-namespace TestTask.Infrastructure.Logging
+namespace TestTask.Infrastructure.DI.Setups
 {
-    public static class SerilogConfig
+    public static class SerilogSetup
     {
         public static void Configure()
         {

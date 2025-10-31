@@ -8,9 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using TestTask.Domain.Entities;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
-using TestTask.Infrastructure.Extensions;
 
-namespace TestTask.Infrastructure.Extensions
+namespace TestTask.Infrastructure.Features.Users.Extensions
 {
     public static class JwtBearerExtensions
     {

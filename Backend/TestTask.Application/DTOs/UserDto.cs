@@ -2,7 +2,7 @@ using TestTask.Domain.Enums;
 
 namespace TestTask.Application.DTOs
 {
-    public class UserDto
+    public class UserDTO
     {
         public string Nickname { get; set; } = null!;
         public string Email { get; set; } = null!;
