@@ -1,0 +1,49 @@
+<div class="register-container">
+  <h2>Register</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Username</label>
+      <input type="text" formControlName="nickname" />
+      <div *ngIf="registerForm.get('nickname')?.invalid && registerForm.get('nickname')?.touched">
+        Username is required (min 3 chars)
+      </div>
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        Valid email is required
+      </div>
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+      <button type="button" (click)="togglePasswordVisibility()">Show/Hide</button>
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        Password is required (min 6 chars)
+      </div>
+    </div>
+
+    <div>
+      <label>Confirm Password</label>
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="passwordConfirm" />
+      <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('passwordConfirm')?.touched">
+        Passwords do not match
+      </div>
+    </div>
+
+    <div>
+      <label>Role</label>
+    <select formControlName="role">
+      <option *ngFor="let r of roles" [ngValue]="r.value">{{ r.label }}</option>
+    </select>
+    </div>
+
+    <button type="submit" [disabled]="loading">Register</button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+</div>

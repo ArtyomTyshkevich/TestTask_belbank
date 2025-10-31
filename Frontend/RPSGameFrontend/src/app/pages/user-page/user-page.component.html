@@ -1,0 +1,118 @@
+<div class="user-page">
+  <h2>Users</h2>
+
+  <button (click)="openRegisterModal()">Register New User</button>
+
+  <table border="1" style="margin-top:16px; width:100%;">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Nickname</th>
+        <th>Role (value)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" [ngClass]="{'blocked-user': user.role === rolesEnum.Blocked}">
+        <td>{{ user.email }}</td>
+        <td>{{ user.username || user.nickname }}</td>
+        <td>{{ rolesEnum[user.role] }}</td>
+        <td>
+          <button 
+            (click)="openPasswordModal(user)" 
+            [disabled]="user.role === rolesEnum.Blocked || user.email === currentUserEmail">
+            Set Password
+          </button>
+          <button 
+            (click)="blockUser(user)" 
+            [disabled]="user.role === rolesEnum.Blocked || user.email === currentUserEmail">
+            Block
+          </button>
+          <button 
+            (click)="deleteUser(user)" 
+            [disabled]="user.email === currentUserEmail">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="registerModalVisible" class="modal">
+    <div class="modal-content">
+      <h3>Register New User</h3>
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <label>
+          Nickname:
+          <input type="text" formControlName="nickname" />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input type="email" formControlName="email" />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input type="password" formControlName="password" />
+        </label>
+        <br />
+        <label>
+          Confirm Password:
+          <input type="password" formControlName="passwordConfirm" />
+        </label>
+        <br />
+        <label>
+          Role:
+          <select formControlName="role">
+            <option *ngFor="let role of rolesList" [ngValue]="role.value">
+              {{ role.label }}
+            </option>
+          </select>
+        </label>
+        <br />
+        <button type="submit">Register</button>
+        <button type="button" (click)="closeRegisterModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="passwordModalVisible" class="modal">
+    <div class="modal-content">
+      <h3>Set Password for {{ editingUser?.nickname }}</h3>
+      <form [formGroup]="passwordForm" (ngSubmit)="setPassword()">
+        <label>
+          New Password:
+          <input type="password" formControlName="NewPassword" />
+        </label>
+        <br />
+        <button type="submit">Update Password</button>
+        <button type="button" (click)="closePasswordModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.blocked-user {
+  background-color: #f8d7da;
+}
+</style>

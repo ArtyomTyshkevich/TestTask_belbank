@@ -1,0 +1,162 @@
+<div class="product-page">
+  <h2>Products</h2>
+
+  <!-- Кнопка перехода на категории -->
+  <button (click)="goToCategories()" style="margin-bottom: 16px;">Go to Categories</button>
+
+  <!-- Фильтры -->
+  <form [formGroup]="filterForm" style="margin-bottom:16px;">
+    <input type="text" placeholder="Name starts with..." formControlName="nameStartsWith" />
+    <input type="number" placeholder="Min price" formControlName="minPrice" />
+    <input type="number" placeholder="Max price" formControlName="maxPrice" />
+    <select formControlName="categoryId">
+      <option value="">All Categories</option>
+      <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+    </select>
+  </form>
+
+  <button (click)="openModal()">Create New Product</button>
+
+  <table border="1" style="margin-top:16px; width:100%;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price (₽)</th>
+        <th>Common Note</th>
+        <th *ngIf="userRole === 2">Special Note</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>
+          {{ product.priceRub }}
+          <div class="usd-tooltip">
+            <span 
+              class="usd-indicator" 
+              (mouseenter)="hoveredPrice(product)" 
+              (mouseleave)="hideUsdPrice(product)"
+              title="See price in USD">*
+            </span>
+            <div class="tooltip-content" 
+                 *ngIf="usdPriceMap[product.id] !== undefined && usdPriceMap[product.id] !== null && showUsdTooltip === product.id">
+              {{ usdPriceMap[product.id] | number:'1.2-2' }}$
+            </div>
+          </div>
+        </td>
+        <td>{{ product.commonNote || '-' }}</td>
+        <td *ngIf="userRole === 2">{{ product.specialNote || '-' }}</td>
+        <td>{{ product.category.name }}</td>
+        <td>
+          <button (click)="openModal(product)">Edit</button>
+          <button *ngIf="userRole === 2" (click)="deleteProduct(product)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Модальное окно -->
+  <div *ngIf="modalVisible" class="modal">
+    <div class="modal-content">
+      <h3>{{ editingProduct ? 'Edit Product' : 'Create Product' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="saveProduct()">
+        <label>
+          Name:
+          <input type="text" formControlName="name" />
+        </label>
+        <br />
+        <label>
+          Description:
+          <input type="text" formControlName="description" />
+        </label>
+        <br />
+        <label>
+          Price:
+          <input type="number" formControlName="priceRub" (input)="onPriceChange($any($event.target).value)" />
+        </label>
+        <span *ngIf="usdModalPrice !== null"> (~{{ usdModalPrice | number:'1.2-2' }}$)</span>
+        <br />
+        <label>
+          Common Note:
+          <input type="text" formControlName="commonNote" />
+        </label>
+        <br />
+        <label *ngIf="userRole === 2">
+          Special Note:
+          <input type="text" formControlName="specialNote" />
+        </label>
+        <br />
+        <label>
+          Category:
+          <select formControlName="categoryId">
+            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+          </select>
+        </label>
+        <br />
+        <button type="submit">{{ editingProduct ? 'Update' : 'Create' }}</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.usd-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.usd-indicator {
+  cursor: pointer;
+  color: blue;
+  margin-left: 4px;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+</style>

@@ -1,0 +1,32 @@
+# Stage 1: Build Angular app
+FROM node:20-alpine AS build
+
+# Рабочая директория
+WORKDIR /app
+
+# Копируем package.json и package-lock.json
+COPY package*.json ./
+
+# Устанавливаем зависимости
+RUN npm install
+
+# Копируем весь проект
+COPY . .
+
+# Сборка Angular приложения в production
+RUN npm run build --prod
+
+# Stage 2: Serve app with Nginx
+FROM nginx:alpine
+
+# Копируем собранное приложение из build stage
+COPY --from=build /app/dist/rpsgame-frontend /usr/share/nginx/html
+
+# Копируем свой конфиг nginx, если есть
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port
+EXPOSE 80
+
+# Старт Nginx
+CMD ["nginx", "-g", "daemon off;"]

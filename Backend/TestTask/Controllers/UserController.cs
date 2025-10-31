@@ -88,6 +88,7 @@ namespace TestTask.Api.Controllers
             await _mediator.Send(command, cancellationToken);
             return NoContent();
         }
+
         [HttpGet("users")]
         [Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<List<UserDTO>>> GetAllUsers(CancellationToken cancellationToken)
